@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnitudo Tester</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    .circle {
+      width: 500px;
+      height: 500px;
+      background-color: grey;
+      border-radius: 50%;
+      transition: transform 0.4s ease, background-color 0.4s ease;
+      margin-bottom: 20px;
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      background: blue;
+      padding: 10px;
+      z-index: 99999;
+      width: 90vw;
+    }
+
+    .value-display {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="circle"></div>
+  <div class="slider-container">
+    <div class="value-display">Magnitudo: 0</div>
+    <input style="width: 80vw;" id="slider" type="range" min="-100" max="100" value="0" step="1" />
+  </div>
+  <script>
+    const slider = document.getElementById("slider");
+    const circle = document.querySelector(".circle");
+    const valueDisplay = document.querySelector(".value-display");
+
+    slider.addEventListener("input", () => {
+  const value = parseInt(slider.value, 10);
+
+  valueDisplay.textContent = `Magnitudo: ${value}`;
+
+  // Consistent size and color calculations
+  const sizeScale = 1 - value / 50;
+  const brightness = 255 * (1 - value / 6);
+  const color = `rgb(${brightness}, ${brightness}, ${brightness})`;
+
+  circle.style.transform = `scale(${sizeScale})`;
+  circle.style.backgroundColor = color;
+});
+
+  </script>
+</body>
+</html>
